@@ -1,0 +1,23 @@
+package Testing;
+
+import java.util.concurrent.TimeUnit;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
+
+public class Timer {
+	@Test
+	@Timeout(4)
+	public void assum() throws InterruptedException {
+		Thread.sleep(5000);
+		System.out.println("otp is correct");
+	}
+	
+	@Test
+	@Timeout(4)
+	public void assum1() throws InterruptedException {
+		TimeUnit.SECONDS.sleep(5);
+		System.out.println("ot is correct");
+	}
+	
+}

@@ -1,0 +1,28 @@
+package Testing;
+
+import org.junit.Test;
+import org.junit.jupiter.api.Order;
+
+public class random {
+	
+	@Test
+	@Order(4)
+	public void demo1() {
+		System.out.println("TEST-1");
+	}
+	
+	@Test
+	@Order(3)
+	public void demo2() {
+		System.out.println("TEST-2");
+	}
+	
+	@Test 
+	@Order(2)
+	public void demo3() {
+		System.out.println("TEST-3");
+	}
+	
+	
+	
+}

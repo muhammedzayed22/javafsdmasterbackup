@@ -1,0 +1,28 @@
+package Testing;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import jUnitTesting.DemoTest;
+
+public class DemoTesting1 {
+	
+	@Test
+	public void Test1() {
+		
+		DemoTest d1 = new DemoTest();
+		System.out.println(d1.add(10,20));
+		int a = d1.add(100, 50);
+		assertEquals(a,150);
+		
+	}
+	
+	@Test
+	public void Test2() {
+		DemoTest d1 = new DemoTest();
+		System.out.println(d1.add(30, 25));
+		
+	}
+	
+}

@@ -1,0 +1,24 @@
+package Testing;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnJre;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.JRE;
+import org.junit.jupiter.api.condition.OS;
+
+public class testng5 {
+	
+	@Test
+	@EnabledOnOs(OS.MAC)
+	
+	public void os() {
+		System.out.println("I will run @ windows");
+	}
+	
+	@Test
+	@EnabledOnJre(JRE.JAVA_18)
+	public void jre() {
+		System.out.println("I am java 18");
+	}
+
+}

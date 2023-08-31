@@ -1,0 +1,252 @@
+package agriMngmt;
+import java.util.*;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.swing.JTextArea;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+
+public class FarmerSignUp extends JFrame {
+	
+	 private static Connection conn = null;
+	
+	{
+	try {
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+        
+
+        conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/login_creds", "root", "root");
+		
+//		FarmerSignUp frame = new FarmerSignUp();
+//		frame.setVisible(true);
+		 
+	} 
+	catch (Exception e) {
+		e.printStackTrace();
+	}
+	}
+	JFrame f;
+	ExsOrNew e1 = new ExsOrNew();
+//    private static Connection conn = null;
+
+	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	static List<List<String>> details = new ArrayList<>();
+	static List<String> det;
+	String name,email,username,password;
+	private JButton btnNewButton;
+	static PreparedStatement preparedstatement_FarmOwner,preparedstatement_FarmWorker; 
+	/**
+	 * Launch the application.
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	public static void main(String[] args) throws SQLException, ClassNotFoundException {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+        
+
+        conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/login_creds", "root", "root");
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					
+					
+					
+					FarmerSignUp frame = new FarmerSignUp();
+					frame.setVisible(true);
+					 
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public FarmerSignUp()  throws SQLException {
+
+        preparedstatement_FarmOwner = conn.prepareStatement("insert into farm_owner(owner_Name,phn_num,farm_address,farm_area_in_sqm,owner_username,owner_email,owner_password) values(?,?,?,?,?,?,?)");
+        preparedstatement_FarmWorker = conn.prepareStatement("insert into Customer_SignUp(CustomerName,CustomerEmail,CustomerUsername,Customerpassword) values(?,?,?,?)");
+        
+		det = new ArrayList<>();
+		f = new JFrame();
+		f.setTitle("Sign Up Page");
+		
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 702, 590);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("FARMER SIGN UP");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(277, 74, 168, 56);
+		contentPane.add(lblNewLabel);
+		
+		textField = new JTextField();
+		textField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				name = textField.getText();
+				det.add(name);
+//				System.out.println(det);
+				try {
+					if (UserPage.fo==1)
+						preparedstatement_FarmOwner.setString(1, name);
+					else if (UserPage.c==1)
+						preparedstatement_FarmWorker.setString(1, name);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				textField_1.requestFocusInWindow();
+			}
+		});
+		textField.setBounds(326, 186, 96, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				email = textField_1.getText();
+				det.add(email);
+				try {
+					if (FrontPage.f==1)
+						preparedstatement_FarmOwner.setString(2, email);
+					else if (FrontPage.c==1)
+						preparedstatement_FarmWorker.setString(2, email);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+//				System.out.println(det);
+			    textField_2.requestFocusInWindow();
+			}
+		});
+		textField_1.setBounds(326, 251, 96, 20);
+		contentPane.add(textField_1);
+		textField_1.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				username = textField_2.getText();
+				det.add(username);
+				try {
+					if (FrontPage.f==1)
+						preparedstatement_FarmOwner.setString(3, username);
+					else if (FrontPage.c==1)
+						preparedstatement_FarmWorker.setString(3, username);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+//				System.out.println(det);
+				textField_3.requestFocusInWindow();
+			}
+		});
+		textField_2.setBounds(321, 320, 96, 20);
+		contentPane.add(textField_2);
+		textField_2.setColumns(10);
+		
+		textField_3 = new JTextField();
+		textField_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				password = textField_3.getText();
+				det.add(password);
+				details.add(det);
+				try {
+					if (FrontPage.f==1) {
+						preparedstatement_FarmOwner.setString(4, password);
+						preparedstatement_FarmOwner.executeUpdate();
+					}
+					else if (FrontPage.c==1) {
+						preparedstatement_FarmWorker.setString(4, password);
+						preparedstatement_FarmWorker.executeUpdate();
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+//				System.out.println(det);
+//				System.out.println(details);
+//				if(password.length()>0)
+				JOptionPane.showMessageDialog(null, "Sign Up Complete");
+				det = new ArrayList<>();
+			}
+		});
+		textField_3.setBounds(321, 376, 96, 20);
+		contentPane.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("NAME");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel_1.setBounds(226, 186, 78, 20);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("EMAIL");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel_2.setBounds(188, 254, 116, 14);
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("USERNAME");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel_3.setBounds(166, 323, 138, 14);
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("CREATE PASSWORD");
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel_4.setBounds(119, 379, 185, 14);
+		contentPane.add(lblNewLabel_4);
+		
+		btnNewButton = new JButton("BACK");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				e1.setVisible(true);;
+				dispose();
+				
+			}
+		});
+	
+		btnNewButton.setBounds(453, 422, 89, 23);
+		contentPane.add(btnNewButton);
+		
+		
+		
+	}
+}

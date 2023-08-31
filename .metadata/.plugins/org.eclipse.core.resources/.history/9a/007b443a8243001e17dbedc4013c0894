@@ -1,0 +1,71 @@
+package agriMngmt;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JLayeredPane;
+import javax.swing.JScrollBar;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+
+import java.awt.Button;
+import javax.swing.JTabbedPane;
+
+public class FarmerPage extends JFrame {
+	JFrame f;
+	private JPanel contentPane;
+	private JTable table;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FarmerPage frame = new FarmerPage();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 * @param data 
+	 * @param column 
+	 */
+	 
+	        
+	public FarmerPage() {
+		 f=new JFrame();
+		 f.setSize(939,539);
+		 
+		 
+		 String[][] data = {
+					{ "Kundan Kumar Jha", "4031", "CSE" , "A" },
+					{ "Anand Jha", "6014", "IT" ,"B" }
+				};
+
+				// Column Names
+				String[] columnNames = { "Name", "Roll Number", "Department", "Section"};
+		 f.getContentPane().setLayout(null);
+		 JScrollBar scrollBar = new JScrollBar();
+		 scrollBar.setBounds(0, 0, 590, 295);
+		 
+		 
+		 f.getContentPane().add(scrollBar);
+		 f.getContentPane().add(scrollBar);
+		 f.setSize(604, 332);
+			// Frame Visible = true
+		 f.setVisible(true);  
+	}
+}

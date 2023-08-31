@@ -1,0 +1,67 @@
+package agriMngmt;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JRadioButton;
+import javax.swing.JButton;
+
+public class NewFrontPage extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					NewFrontPage frame = new NewFrontPage();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public NewFrontPage() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 500, 414);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JRadioButton FOwner = new JRadioButton("Farm Owner");
+		FOwner.setBounds(121, 74, 111, 23);
+		contentPane.add(FOwner);
+		
+		JRadioButton FWorker = new JRadioButton("Farm Worker");
+		FWorker.setBounds(121, 130, 111, 23);
+		contentPane.add(FWorker);
+		
+		JRadioButton RetailerS = new JRadioButton("Retailer");
+		RetailerS.setBounds(121, 189, 111, 23);
+		contentPane.add(RetailerS);
+		
+		JRadioButton CustomerS = new JRadioButton("Customer");
+		CustomerS.setBounds(121, 253, 111, 23);
+		contentPane.add(CustomerS);
+		
+		JButton sIN = new JButton("Sign in");
+		sIN.setBounds(55, 308, 89, 23);
+		contentPane.add(sIN);
+		
+		JButton sUP = new JButton("Sign up");
+		sUP.setBounds(242, 308, 89, 23);
+		contentPane.add(sUP);
+	}
+}

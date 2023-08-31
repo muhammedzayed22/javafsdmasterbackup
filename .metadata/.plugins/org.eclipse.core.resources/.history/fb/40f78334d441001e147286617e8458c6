@@ -1,0 +1,85 @@
+package agriMngmt;
+
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JLayeredPane;
+import javax.swing.JScrollBar;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+
+import java.awt.Button;
+import javax.swing.JTabbedPane;
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+ 
+
+public class Login_Creds {
+    private static Connection conn = null;
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+
+        Scanner scanner = new Scanner(System.in);
+        Login_Creds login_creds = new Login_Creds();
+
+
+        try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String dburl="jdbc:mysql://localhost:3306/login_creds";
+        String username ="root";
+        String password="root";
+
+        conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/login_creds", "root", "root");
+        System.out.println("Enter choice");
+        System.out.println("1. Insert record");
+        int choice=Integer.parseInt(scanner.nextLine());
+
+        switch(choice) {
+        case 1:
+            String c,u,p;
+            c=scanner.next();
+            u=scanner.next();
+            p=scanner.next();
+            login_creds.insertRecord(c,u,p);
+        break;
+        default:
+            break;
+
+        }
+        }
+        catch(Exception e) {
+            //throw new RuntimeException("Something went wrong");
+            System.out.println(e);
+            e.printStackTrace();
+        }
+    }
+
+    private void insertRecord(String custname, String username, String pwd) throws SQLException{
+
+        System.out.println("Inside insert record(): ");
+        String sql = "insert into login(custname,username,pwd) values(?,?,?)";
+
+        PreparedStatement preparedstatement = conn.prepareStatement(sql);
+        preparedstatement.setString(1, custname);
+        preparedstatement.setString(2,username);
+        preparedstatement.setString(3, pwd);
+        preparedstatement.executeUpdate();
+
+    }
+
+ 
+
+}

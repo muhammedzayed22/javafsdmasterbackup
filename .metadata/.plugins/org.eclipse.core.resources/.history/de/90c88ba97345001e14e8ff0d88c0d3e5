@@ -1,0 +1,128 @@
+package agriMngmt;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JPasswordField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import java.awt.HeadlessException;
+
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
+
+public class Admin extends JFrame {
+	
+	private static Connection conn = null;
+	static PreparedStatement preparedstatement1,preparedstatement2,preparedstatement3; 
+	
+	{
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/login_creds", "root", "root");
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	private JPanel contentPane;
+	private JPasswordField passwordField;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args)throws ClassNotFoundException, SQLException {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Admin frame = new Admin();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Admin() throws ClassNotFoundException, SQLException{
+		
+		preparedstatement1 = conn.prepareStatement("select password form Admin");
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		passwordField = new JPasswordField();
+		passwordField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					char[] psw = passwordField.getPassword();
+					String psw1 = "";
+					System.out.print(psw1);
+					for(char i :psw){
+						psw1+=i;
+					}
+					while(true) {
+
+//						preparedstatement1.setString(1, a);
+						ResultSet rs1 = preparedstatement1.executeQuery();
+						System.out.println(rs1+" password");
+						String PassCheck="";
+						if(rs1.next())
+						{
+							PassCheck = rs1.getString(1);
+							System.out.println(rs1.getString(1)+"Ps2");
+						}
+						System.out.println(PassCheck);
+						if(psw1.equals(PassCheck)){
+							JOptionPane.showMessageDialog(null, "Login Succesfull");
+							break;
+						}
+						else {
+							
+							JOptionPane.showMessageDialog(null, "Incorrect Password");
+							passwordField.requestFocusInWindow();
+							break;
+						}
+					}
+				}
+				catch (HeadlessException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		passwordField.setBounds(130, 117, 130, 20);
+		contentPane.add(passwordField);
+		
+		JLabel lblNewLabel = new JLabel("ENTER PASSWORD");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(105, 57, 174, 20);
+		contentPane.add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("OK");
+		btnNewButton.setBounds(162, 169, 62, 43);
+		contentPane.add(btnNewButton);
+	}
+}

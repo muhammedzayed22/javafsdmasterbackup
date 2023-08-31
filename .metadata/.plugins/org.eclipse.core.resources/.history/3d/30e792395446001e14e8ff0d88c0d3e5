@@ -1,0 +1,140 @@
+package agriMngmt;
+
+import java.awt.EventQueue;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+ 
+
+//import com.mysql.cj.xdevapi.Statement;
+
+ 
+
+import javax.swing.JScrollPane;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+
+ 
+
+public class TableEx extends JFrame {
+
+ 
+
+    private JPanel contentPane;
+    private JTable table;
+
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+
+                    TableEx frame = new TableEx();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+ 
+
+    /**
+     * Create the frame.
+     */
+    public TableEx() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 1223, 671);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+ 
+
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(30, 46, 364, 188);
+        contentPane.add(scrollPane);
+
+        JButton btnNewButton = new JButton("Manage");
+        btnNewButton.setBounds(1015, 472, 89, 23);
+        contentPane.add(btnNewButton);
+
+        JLabel lblNewLabel = new JLabel("STOCK STATUS");
+        lblNewLabel.setBounds(92, 21, 197, 14);
+        contentPane.add(lblNewLabel);
+        
+                table = new JTable();
+                table.setBounds(414, 50, 345, 500);
+                contentPane.add(table);
+                table.setRowHeight(50);
+                table.setModel(new DefaultTableModel(
+                    new Object[][] {
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null},
+                    },
+                    new String[] {
+                        "S.No", "Name", "Email", "Username" , "Password"
+                    }
+                ));
+                DefaultTableModel dt= (DefaultTableModel) table.getModel();
+        try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/login_creds", "root", "root");
+        //Connection con = customer_login.getCon();
+
+ 
+
+        Statement st = (Statement) connection.createStatement();
+
+ 
+
+        ResultSet rs = ((java.sql.Statement) st).executeQuery("select * from Farmer_SignUp");
+
+ 
+
+        while(rs.next())
+
+ 
+
+        {
+
+ 
+
+        dt.addRow(new Object[] { rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5)});
+
+ 
+
+        //sno++;
+        }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+ 
+
+        
+    }
+}

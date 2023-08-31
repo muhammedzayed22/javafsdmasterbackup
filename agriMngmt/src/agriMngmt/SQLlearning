@@ -1,0 +1,53 @@
+
+
+create table studinfo(
+  SNo int,
+  name varchar(50),
+  dept varchar(50),
+  email varchar(50)
+);
+
+
+
+alter table studinfo rename column name to Studname;
+
+alter table Studinfo 
+add(course varchar(50),
+    AcdYr text);
+select * from studinfo;
+rename table Studinfo to Stud_Info;
+
+insert into Stud_Info values(1,"Zayed","ECE","gmail","a","I"),
+(2,"AB","EEE","yahoo","b","II"),
+(3,"Swetha","ECE","outlook","c","III");
+
+select * from stud_info;
+
+/*update stud_info set Studname="ME"; -- changes everything to "ME"
+
+select * from stud_info;*/
+
+alter table stud_info drop column AcdYr;
+
+select * from stud_info;
+
+/*lock table stud_info read;
+
+select * from stud_info;*/
+
+/*insert into stud_info values(4,"sid","CSE","gmail","d");
+
+select * from stud_info;*/
+
+/*unlock table stud_info ;*/
+insert into stud_info values(4,"sid","CSE","gmail","d");
+select * from stud_info;
+desc stud_info;
+/*create user zayed@localhost identified by '1234';
+
+show grants for zayed@localhost;
+
+revoke all, grant option form zayd@localhost;*/
+
+
+
